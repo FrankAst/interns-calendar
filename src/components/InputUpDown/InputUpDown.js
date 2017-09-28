@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './InputUpDown.scss';
+import './InputUpDown.css';
 import SvgIcon from '../SvgIcon';
 
 // https://date-fns.org/ - for working with Date
@@ -8,10 +8,24 @@ import SvgIcon from '../SvgIcon';
 
 export default class InputUpDown extends React.Component {
   render() {
+    this.state = {
+      addNull: '',
+    };
+
+    // if (this.props.time >= 0 && this.props.time <= 9) this.state.addNull = '0';
+
     return (
-      <div className={s.root}>
-        <span className={s.span}>Hi!</span>
-        <SvgIcon file="arrow_up" wh={50} />
+      <div className={this.props.className}>
+        <button className="buttonUp" onClick={() => this.props.increase()}>
+          <SvgIcon file="arrow_up" wh={30} />
+        </button>
+        <div className="unit">
+          {/* {this.state.addNull} */}
+          {this.props.time}
+        </div>
+        <button className="buttonDown" onClick={() => this.props.decrease()}>
+          <SvgIcon file="arrow_down" wh={30} />
+        </button>
       </div>
     );
   }

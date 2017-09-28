@@ -1,0 +1,19 @@
+.main {
+  text-align: center;
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.50);
+  border-radius: .25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.separator {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  justify-self: center;
+  align-self: center;
+  font-size: 22px;
+}
