@@ -1,69 +1,44 @@
 import React from 'react';
 import s from './InputText.scss';
 import PickerPanel from '../PickerPanel/PickerPanel';
-import getMinutes from 'date-fns/get_minutes';
-import getHours from 'date-fns/get_hours';
 import format from 'date-fns/format';
-import addMinutes from 'date-fns/add_minutes';
-import addHours from 'date-fns/add_hours';
-
 export default class InputText extends React.Component {
   constructor() {
     super();
     this.state = {
-      hours: format(getHours(new Date()), 'HH'),
-      minutes: format(getMinutes(new Date()), 'mm'),
+      time: new Date(),
     };
   }
-  // increaseHours() {
-  //   let hours = this.prettierHours(this.state.hours + 1);
-  //   this.setState({
-  //     hours: hours,
-  //   });
-  // }
+
   increaseHours() {
-    const hours = format(getHours(addHours(new Date(), 1)), 'HH');
-    alert(hours);
+    const tmpDate = this.state.time;
+    tmpDate.setHours(tmpDate.getHours() + 1);
+    this.setState({ tmpDate });
   }
+
   decreaseHours() {
-    let hours = this.prettierHours(this.state.hours - 1);
-    this.setState({
-      hours: hours,
-    });
+    const tmpDate = this.state.time;
+    tmpDate.setHours(tmpDate.getHours() - 1);
+    this.setState({ tmpDate });
   }
   increaseMinutes() {
-    let minutes = this.prettierMinutes(this.state.minutes + 1);
-    this.setState({
-      minutes: minutes,
-    });
+    const tmpDate = this.state.time;
+    tmpDate.setMinutes(tmpDate.getMinutes() + 1);
+    this.setState({ tmpDate });
   }
   decreaseMinutes() {
-    let minutes = this.prettierMinutes(this.state.minutes - 1);
-    this.setState({
-      minutes: minutes,
-    });
+    const tmpDate = this.state.time;
+    tmpDate.setMinutes(tmpDate.getMinutes() - 1);
+    this.setState({ tmpDate });
   }
-  prettierHours(hour) {
-    if (hour > 23) hour = 0;
-    if (hour < 0) hour = 23;
-    return hour;
-  }
-  prettierMinutes(minute) {
-    if (minute > 59) minute = 0;
-    if (minute < 0) minute = 59;
-    return minute;
-  }
+
   render() {
     return (
       <div className={s.gridItem}>
-        <input
-          className={s.main}
-          type="text"
-          defaultValue={this.state.hours + ' : ' + this.state.minutes}
-        />
+        <input className={s.main} type="text" value={format(this.state.time, 'HH:mm')} />
         <PickerPanel
-          hours={this.state.hours}
-          minutes={this.state.minutes}
+          hours={format(this.state.time, 'HH')}
+          minutes={format(this.state.time, 'mm')}
           increaseHours={() => this.increaseHours()}
           decreaseHours={() => this.decreaseHours()}
           increaseMinutes={() => this.increaseMinutes()}
