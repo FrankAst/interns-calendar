@@ -7,7 +7,37 @@ export default class InputText extends React.Component {
     super();
     this.state = {
       time: new Date(),
+      isDelayPressed: false,
+      intervalId: 0,
+      delayId: 0,
     };
+  }
+
+  speedScroll(isDelayPressed, whichUnitOfTime, action) {
+    if (isDelayPressed) {
+      let delayId = setTimeout(() => {
+        let id = setInterval(() => {
+          if (whichUnitOfTime === 'hours') {
+            if (action === 'increase') {
+              this.increaseHours();
+            } else if (action === 'decrease') {
+              this.decreaseHours();
+            }
+          } else if (whichUnitOfTime === 'minutes') {
+            if (action === 'increase') {
+              this.increaseMinutes();
+            } else if (action === 'decrease') {
+              this.decreaseMinutes();
+            }
+          }
+        }, 100);
+        this.setState({ intervalId: id });
+      }, 300);
+      this.setState({ delayId: delayId });
+    } else {
+      clearInterval(this.state.intervalId);
+      clearTimeout(this.state.delayId);
+    }
   }
 
   increaseHours() {
@@ -35,7 +65,7 @@ export default class InputText extends React.Component {
   render() {
     return (
       <div className={s.gridItem}>
-        <input className={s.main} type="text" value={format(this.state.time, 'HH:mm')} />
+        <input className={s.main} type="text" value={format(this.state.time, 'HH:mm')} readOnly />
         <PickerPanel
           hours={format(this.state.time, 'HH')}
           minutes={format(this.state.time, 'mm')}
@@ -43,6 +73,8 @@ export default class InputText extends React.Component {
           decreaseHours={() => this.decreaseHours()}
           increaseMinutes={() => this.increaseMinutes()}
           decreaseMinutes={() => this.decreaseMinutes()}
+          speedScroll={(isDelayPressed, whichUnitOfTime, action) =>
+            this.speedScroll(isDelayPressed, whichUnitOfTime, action)}
         />
       </div>
     );

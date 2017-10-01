@@ -10,6 +10,7 @@ export default function PickerPanel(props) {
         time={props.hours}
         increase={() => props.increaseHours()}
         decrease={() => props.decreaseHours()}
+        speedScroll={(isDelayPressed, action) => props.speedScroll(isDelayPressed, 'hours', action)}
       />
       <div className={s.separator}>:</div>
       <InputUpDown
@@ -17,6 +18,8 @@ export default function PickerPanel(props) {
         time={props.minutes}
         increase={() => props.increaseMinutes()}
         decrease={() => props.decreaseMinutes()}
+        speedScroll={(isDelayPressed, action) =>
+          props.speedScroll(isDelayPressed, 'minutes', action)}
       />
     </div>
   );

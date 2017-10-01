@@ -49,8 +49,10 @@
 
 .buttonUp:active {
   background-color: #cccccc;
+  border-radius: 3px;
 }
 
 .buttonDown:active {
   background-color: #cccccc;
+  border-radius: 3px;
 }
