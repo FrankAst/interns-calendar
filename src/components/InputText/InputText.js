@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './InputText.scss';
-import PickerPanel from '../PickerPanel/PickerPanel';
+// import PickerPanel from '../PickerPanel/PickerPanel';
+import Calendar from '../Calendar/MainPanel/MainPanel';
 import format from 'date-fns/format';
 export default class InputText extends React.Component {
   constructor() {
@@ -66,7 +67,7 @@ export default class InputText extends React.Component {
     return (
       <div className={s.gridItem}>
         <input className={s.main} type="text" value={format(this.state.time, 'HH:mm')} readOnly />
-        <PickerPanel
+        {/* <PickerPanel
           hours={format(this.state.time, 'HH')}
           minutes={format(this.state.time, 'mm')}
           increaseHours={() => this.increaseHours()}
@@ -75,7 +76,8 @@ export default class InputText extends React.Component {
           decreaseMinutes={() => this.decreaseMinutes()}
           speedScroll={(isDelayPressed, whichUnitOfTime, action) =>
             this.speedScroll(isDelayPressed, whichUnitOfTime, action)}
-        />
+        /> */}
+        <Calendar />
       </div>
     );
   }
