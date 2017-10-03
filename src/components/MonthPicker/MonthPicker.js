@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from '../../SvgIcon';
+import SvgIcon from '../SvgIcon';
 import s from './MonthPicker.scss';
 
 export default class MonthPicker extends React.Component {

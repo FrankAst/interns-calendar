@@ -1,10 +1,11 @@
 import React from 'react';
 import MonthPicker from '../MonthPicker/MonthPicker';
 import DayPicker from '../DayPicker/DayPicker';
+import SvgIcon from '../SvgIcon';
 import format from 'date-fns/format';
-import s from './MainPanel.scss';
+import s from './CalendarPanel.scss';
 
-export default class MainPanel extends React.Component {
+export default class CalendarPanel extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -38,7 +39,9 @@ export default class MainPanel extends React.Component {
         />
         <DayPicker />
         <div className={s.weekDays}>{this.makeWeek()}</div>
-        <button className={s.switch}>Clock</button>
+        <button className={s.switch}>
+          <SvgIcon file="clock" wh={24} />
+        </button>
       </div>
     );
   }
