@@ -2,23 +2,15 @@ import React from 'react';
 import MonthPicker from '../MonthPicker/MonthPicker';
 import DayPicker from '../DayPicker/DayPicker';
 import SvgIcon from '../SvgIcon';
+// import OutsideClickHandler from '../OutsideClickHandler';
 import format from 'date-fns/format';
 import s from './CalendarPanel.scss';
 
 export default class CalendarPanel extends React.Component {
   constructor() {
     super();
-    this.state = {
-      time: new Date(),
-    };
+    this.state = { time: new Date() };
   }
-  plusMonth() {
-    const tmpDate = this.state.time;
-    tmpDate.setMonth(tmpDate.getMonth() + 1);
-    console.log(tmpDate);
-    this.setState({ tmpDate });
-  }
-  minusMonth() {}
 
   makeWeek() {
     const daysOfWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -28,20 +20,22 @@ export default class CalendarPanel extends React.Component {
     });
     return daysOfWeekJSX;
   }
+
   render() {
     return (
       <div className={s.main}>
         <MonthPicker
           month={format(this.state.time, 'MMMM')}
           year={format(this.state.time, 'YYYY')}
-          plus={() => this.plusMonth()}
-          minus={() => this.minusMonth()}
+          plus={() => this.props.plusMonth()}
+          minus={() => this.props.minusMonth()}
         />
         <DayPicker />
         <div className={s.weekDays}>{this.makeWeek()}</div>
-        <button className={s.switch}>
+        <button className={s.switch} onClick={() => this.props.showClock(true)}>
           <SvgIcon file="clock" wh={24} />
         </button>
+        {/* <OutsideClickHandler onOutsideClick={() => this.props.hide(true)} /> */}
       </div>
     );
   }

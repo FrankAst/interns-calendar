@@ -8,39 +8,92 @@ export default class InputText extends React.Component {
     super();
     this.state = {
       time: new Date(),
-      isClockShowing: true,
+      isClockShow: false,
+      isCalendarShow: false,
+      hideAll: false,
     };
   }
+
+  plusMonth() {
+    const tmpDate = this.state.time;
+    tmpDate.setMonth(tmpDate.getMonth() + 1);
+    console.log(tmpDate);
+    this.setState({ tmpDate });
+  }
+  minusMonth() {}
+
   onChangeHours = value => {
-    value = df.setHours(this.state.time, value);
-    this.setState({ time: value });
+    const newTime = df.setHours(this.state.time, value);
+    this.setState({ time: newTime });
   };
+
   onChangeMinutes = value => {
-    value = df.setMinutes(this.state.time, value);
-    this.setState({ time: value });
+    const newTime = df.setMinutes(this.state.time, value);
+    this.setState({ time: newTime });
   };
+
   pickHoursByHand = () => {};
+
   pickMinutesByHand = () => {};
 
+  showClock = bool => {
+    if (this.state.isCalendarShow !== this.state.isClockShow)
+      this.setState({ isClockShow: bool, isCalendarShow: !bool });
+    else this.setState({ isClockShow: bool });
+  };
+
+  showCalendar = bool => {
+    if (this.state.isCalendarShow !== this.state.isClockShow)
+      this.setState({ isCalendarShow: bool, isClockShow: !bool });
+    else this.setState({ isCalendarShow: bool });
+    this.setState({ isCalendarShow: bool });
+  };
+
+  // hideAll = bool => {
+  //   if (bool) {
+  //     this.setState({ isCalendarShow: false, isClockShow: false });
+  //   }
+  // };
+
   render() {
+    const { isCalendarShow, isClockShow, time } = this.state;
+    const {
+      showCalendar,
+      showClock,
+      onChangeHours,
+      onChangeMinutes,
+      pickHoursByHand,
+      pickMinutesByHand,
+      // hideAll,
+    } = this;
     return (
       <div className={s.gridItem}>
         <input
           className={s.main}
+          onClick={() => showCalendar(true)}
           type="text"
-          value={df.format(this.state.time, 'DD.MM.YYYY - HH:mm')}
+          value={df.format(time, 'DD.MM.YYYY - HH:mm')}
           readOnly
         />
 
-        <Clock
-          time={this.state.time}
-          onChangeHours={this.onChangeHours}
-          onChangeMinutes={this.onChangeMinutes}
-          pickHoursByHand={this.pickHoursByHand}
-          pickMinutesByHand={this.pickMinutesByHand}
-        />
-
-        <Calendar />
+        {isClockShow && (
+          <Clock
+            time={time}
+            onChangeHours={onChangeHours}
+            onChangeMinutes={onChangeMinutes}
+            pickHoursByHand={pickHoursByHand}
+            pickMinutesByHand={pickMinutesByHand}
+            showCalendar={showCalendar}
+            // hide={hideAll}
+          />
+        )}
+        {isCalendarShow && (
+          <Calendar
+            //  hide={hideAll}
+            plusMonth={this.plusMonth}
+            showClock={showClock}
+          />
+        )}
       </div>
     );
   }

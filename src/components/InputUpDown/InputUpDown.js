@@ -26,7 +26,8 @@ export default class InputUpDown extends React.Component {
       if (cycle && max !== undefined) newValue = max;
       else return;
     }
-    if (max !== undefined && newValue > max) {
+    if (max !== undefined && value > max) {
+      //if we put here newValue ins value then it won't increase hours automatically
       if (cycle && min !== undefined) newValue = min;
       else return;
     }
